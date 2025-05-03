@@ -55,7 +55,7 @@
 
 **Ahmet Gündüz**  
 .NET Developer | EventEase Project  
-📧 ahmet@example.com
+📧 ahmetmanco07@gmail.com
 
 ---
 
