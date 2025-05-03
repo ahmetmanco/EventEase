@@ -1,0 +1,43 @@
+@page "/registrationlist"
+@using static EventEaseApp.Models.RegistrationModel
+@using EventEaseApp.Models;
+@inject EventEaseApp.Services.RegistrationService RegistrationService
+
+<h3>Kayıtlı Katılımcılar</h3>
+
+@if (registrations.Count == 0)
+{
+    <p>Henüz kayıtlı katılımcı yok.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ad Soyad</th>
+                <th>Email</th>
+                <th>Etkinlik</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var registration in registrations)
+            {
+                <tr>
+                    <td>@registration.Name</td>
+                    <td>@registration.Email</td>
+                    <td>@registration.EventName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<RegistrationModel> registrations = new();
+
+    protected override void OnInitialized()
+    {
+        registrations = RegistrationService.GetRegistrations();
+    }
+}
+    

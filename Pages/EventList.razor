@@ -1,0 +1,32 @@
+@page "/events"
+@using EventEaseApp.Shared
+
+<h3 class="mb-3">Upcoming Events</h3>
+
+@if (Events.Count == 0)
+{
+    <p>No events available.</p>
+}
+else
+{
+    @foreach (var ev in Events)
+    {
+        <EventCard EventName="@ev.Name" EventDate="@ev.Date" EventLocation="@ev.Location" />
+    }
+}
+
+@code {
+    public class Event
+    {
+        public string Name { get; set; } = string.Empty;
+        public DateTime Date { get; set; }
+        public string Location { get; set; } = string.Empty;
+    }
+
+    private List<Event> Events = new()
+    {
+        new Event { Name = "Tech Conference 2025", Date = new DateTime(2025, 6, 15), Location = "Istanbul" },
+        new Event { Name = "Startup Meetup", Date = new DateTime(2025, 7, 5), Location = "Ankara" },
+        new Event { Name = "Blazor Bootcamp", Date = new DateTime(2025, 8, 10), Location = "Izmir" }
+    };
+}

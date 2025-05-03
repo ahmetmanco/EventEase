@@ -1,0 +1,48 @@
+@page "/register"
+@using System.ComponentModel.DataAnnotations
+@using EventEaseApp.Models
+@inject EventEaseApp.Services.RegistrationService RegistrationService
+
+<h3>Kayıt Ol</h3>
+
+<EditForm Model="registrationModel" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label>Ad Soyad:</label>
+        <InputText @bind-Value="registrationModel.Name" class="form-control" />
+        <ValidationMessage For="@(() => registrationModel.Name)" />
+    </div>
+
+    <div>
+        <label>Email:</label>
+        <InputText @bind-Value="registrationModel.Email" class="form-control" />
+        <ValidationMessage For="@(() => registrationModel.Email)" />
+    </div>
+
+    <div>
+        <label>Etkinlik:</label>
+        <InputText @bind-Value="registrationModel.EventName" class="form-control" />
+        <ValidationMessage For="@(() => registrationModel.EventName)" />
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Kaydol</button>
+</EditForm>
+
+@if (isSubmitted)
+{
+    <p class="text-success">Kaydınız başarıyla alındı! 🎉</p>
+}
+
+@code {
+    private RegistrationModel registrationModel = new();
+    private bool isSubmitted = false;
+
+    private void HandleValidSubmit()
+    {
+        RegistrationService.AddRegistration(registrationModel);
+        isSubmitted = true;
+        registrationModel = new(); // formu temizle
+    }
+}
